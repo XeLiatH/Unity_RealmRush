@@ -10,6 +10,7 @@ public class CubeEditor : MonoBehaviour
 {
     Waypoint waypoint;
 
+
     void Awake()
     {
         waypoint = GetComponent<Waypoint>();
@@ -23,8 +24,9 @@ public class CubeEditor : MonoBehaviour
 
     private void SnapToGrid()
     {
+        int gridSize = waypoint.GetGridSize();
         Vector2Int gridPosition = waypoint.GetGridPosition();
-        transform.position = new Vector3(gridPosition.x, 0f, gridPosition.y);
+        transform.position = new Vector3(gridPosition.x * gridSize, 0f, gridPosition.y * gridSize);
     }
 
     private void UpdateLabel()
