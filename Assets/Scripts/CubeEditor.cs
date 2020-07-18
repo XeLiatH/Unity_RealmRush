@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [ExecuteInEditMode]
 [SelectionBase]
@@ -18,6 +19,10 @@ public class CubeEditor : MonoBehaviour
         transform.position = new Vector3(x, 0f, z);
 
         coordinateLabel = GetComponentInChildren<TextMesh>();
-        coordinateLabel.text = transform.position.x / gridSize + "," + transform.position.z / gridSize;
+
+        string labelText = transform.position.x / gridSize + "," + transform.position.z / gridSize; ;
+
+        coordinateLabel.text = labelText;
+        gameObject.name = labelText;
     }
 }
