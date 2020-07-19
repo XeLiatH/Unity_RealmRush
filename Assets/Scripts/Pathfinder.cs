@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Pathfinder : MonoBehaviour
@@ -8,6 +9,13 @@ public class Pathfinder : MonoBehaviour
     [SerializeField] Waypoint startWaypoint, endWaypoint;
 
     Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
+
+    Dictionary<Vector2Int, Waypoint> trail = new Dictionary<Vector2Int, Waypoint>();
+    Queue<Waypoint> queue = new Queue<Waypoint>();
+    
+    // todo: directions should be in the enemy ??
+    // todo: also enemy should be able to find its own path
+
     Vector2Int[] directions = {
         Vector2Int.up,
         Vector2Int.right,
@@ -19,7 +27,7 @@ public class Pathfinder : MonoBehaviour
     {
         LoadWaypoints();
         ColorStartAndEnd();
-        ExploreNeighbours();
+        FindPath();
     }
 
     private void LoadWaypoints()
@@ -44,14 +52,60 @@ public class Pathfinder : MonoBehaviour
         endWaypoint.SetTopColor(Color.yellow);
     }
 
-    private void ExploreNeighbours()
+    private void FindPath()
+    {
+        queue.Enqueue(startWaypoint);
+
+        while (queue.Count > 0)
+        {
+            Waypoint searchCenter = queue.Dequeue();
+            if (searchCenter == endWaypoint)
+            {
+                break;
+            }
+
+            ExploreNeighbours(searchCenter);
+        }
+
+        List<Waypoint> path = new List<Waypoint>();
+
+        Waypoint wp = endWaypoint;
+
+        path.Add(wp);
+
+        bool done = false;
+        while (!done)
+        {
+            var back = trail[wp.GetGridPosition()];
+            path.Add(back);
+
+            wp = back;
+
+            if (back == startWaypoint)
+            {
+                done = true;
+            }
+        }
+
+        path.Reverse();
+
+        foreach (Waypoint waypoint in path)
+        {
+            waypoint.SetTopColor(Color.yellow);
+        }
+    }
+
+    private void ExploreNeighbours(Waypoint from)
     {
         foreach (Vector2Int direction in directions)
         {
-            Vector2Int explorationCoordinate = startWaypoint.GetGridPosition() + direction;
-            if (grid.ContainsKey(explorationCoordinate))
+            Vector2Int explorationCoordinate = from.GetGridPosition() + direction;
+            if (grid.ContainsKey(explorationCoordinate) && !trail.ContainsKey(explorationCoordinate))
             {
-                grid[explorationCoordinate].SetTopColor(Color.blue);
+                Waypoint neighbour = grid[explorationCoordinate];
+
+                queue.Enqueue(neighbour);
+                trail[explorationCoordinate] = from;
             }
         }
     }
