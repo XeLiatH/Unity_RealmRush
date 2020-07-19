@@ -10,11 +10,8 @@ public class Pathfinder : MonoBehaviour
 
     Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
 
-    Dictionary<Vector2Int, Waypoint> trail = new Dictionary<Vector2Int, Waypoint>();
+    List<Waypoint> path = new List<Waypoint>();
     Queue<Waypoint> queue = new Queue<Waypoint>();
-    
-    // todo: directions should be in the enemy ??
-    // todo: also enemy should be able to find its own path
 
     Vector2Int[] directions = {
         Vector2Int.up,
@@ -23,11 +20,14 @@ public class Pathfinder : MonoBehaviour
         Vector2Int.left,
     };
 
-    void Start()
+    public List<Waypoint> GetPath()
     {
         LoadWaypoints();
         ColorStartAndEnd();
+        BreadthFirstSearch();
         FindPath();
+
+        return path;
     }
 
     private void LoadWaypoints()
@@ -52,7 +52,7 @@ public class Pathfinder : MonoBehaviour
         endWaypoint.SetTopColor(Color.yellow);
     }
 
-    private void FindPath()
+    private void BreadthFirstSearch()
     {
         queue.Enqueue(startWaypoint);
 
@@ -66,33 +66,21 @@ public class Pathfinder : MonoBehaviour
 
             ExploreNeighbours(searchCenter);
         }
+    }
 
-        List<Waypoint> path = new List<Waypoint>();
+    private void FindPath()
+    {
+        Waypoint prev = endWaypoint.exploredFrom;
 
-        Waypoint wp = endWaypoint;
-
-        path.Add(wp);
-
-        bool done = false;
-        while (!done)
+        path.Add(endWaypoint);
+        while (prev != startWaypoint)
         {
-            var back = trail[wp.GetGridPosition()];
-            path.Add(back);
-
-            wp = back;
-
-            if (back == startWaypoint)
-            {
-                done = true;
-            }
+            path.Add(prev);
+            prev = prev.exploredFrom;
         }
+        path.Add(startWaypoint);
 
         path.Reverse();
-
-        foreach (Waypoint waypoint in path)
-        {
-            waypoint.SetTopColor(Color.yellow);
-        }
     }
 
     private void ExploreNeighbours(Waypoint from)
@@ -100,12 +88,15 @@ public class Pathfinder : MonoBehaviour
         foreach (Vector2Int direction in directions)
         {
             Vector2Int explorationCoordinate = from.GetGridPosition() + direction;
-            if (grid.ContainsKey(explorationCoordinate) && !trail.ContainsKey(explorationCoordinate))
+            if (grid.ContainsKey(explorationCoordinate))
             {
                 Waypoint neighbour = grid[explorationCoordinate];
 
-                queue.Enqueue(neighbour);
-                trail[explorationCoordinate] = from;
+                if (null == neighbour.exploredFrom)
+                {
+                    queue.Enqueue(neighbour);
+                    neighbour.exploredFrom = from;
+                }
             }
         }
     }

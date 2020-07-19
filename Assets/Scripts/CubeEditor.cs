@@ -31,8 +31,8 @@ public class CubeEditor : MonoBehaviour
 
     private void UpdateLabel()
     {
-        int gridSize = waypoint.GetGridSize();
-        string labelText = transform.position.x / gridSize + "," + transform.position.z / gridSize; ;
+        Vector2Int gridPosition = waypoint.GetGridPosition();
+        string labelText = gridPosition.x + "," + gridPosition.y;
         TextMesh coordinateLabel = GetComponentInChildren<TextMesh>();
 
         coordinateLabel.text = labelText;
