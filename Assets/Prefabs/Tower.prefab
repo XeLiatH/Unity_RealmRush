@@ -4801,6 +4801,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToPan: {fileID: 7193822336664157609}
   target: {fileID: 0}
+  range: 30
+  bullets: {fileID: 1100105653}
 --- !u!1001 &7195350385503373761
 PrefabInstance:
   m_ObjectHideFlags: 0
