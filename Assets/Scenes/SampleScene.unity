@@ -6214,14 +6214,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1429034252}
     m_Modifications:
-    - target: {fileID: 1666563922, guid: 1f540741fdaa7f7409c2d599eede9abf, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2043202397, guid: 1f540741fdaa7f7409c2d599eede9abf, type: 3}
-      propertyPath: m_IsKinematic
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5481248154042548177, guid: 1f540741fdaa7f7409c2d599eede9abf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6282,8 +6274,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2043202397, guid: 1f540741fdaa7f7409c2d599eede9abf, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f540741fdaa7f7409c2d599eede9abf, type: 3}
 --- !u!4 &6105372105844564400 stripped
 Transform:
