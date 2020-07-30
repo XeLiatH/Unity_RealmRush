@@ -5,6 +5,7 @@ using UnityEngine;
 public class Waypoint : MonoBehaviour
 {
     public Waypoint exploredFrom;
+    public bool isPlaceable = true;
 
     const int gridSize = 10;
 
@@ -23,6 +24,9 @@ public class Waypoint : MonoBehaviour
 
     private void OnMouseOver()
     {
-        Debug.Log(gameObject.name);
+        if (Input.GetMouseButtonDown(0) && isPlaceable) // left click
+        {
+            Debug.Log(gameObject.name);
+        }
     }
 }

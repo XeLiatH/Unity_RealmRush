@@ -71,17 +71,24 @@ public class Pathfinder : MonoBehaviour
 
     private void FindPath()
     {
-        Waypoint prev = endWaypoint.exploredFrom;
+        SetAsPath(endWaypoint);
 
-        path.Add(endWaypoint);
+        Waypoint prev = endWaypoint.exploredFrom;
         while (prev != startWaypoint)
         {
-            path.Add(prev);
             prev = prev.exploredFrom;
+            SetAsPath(prev);
         }
-        path.Add(startWaypoint);
+
+        SetAsPath(startWaypoint);
 
         path.Reverse();
+    }
+
+    private void SetAsPath(Waypoint waypoint)
+    {
+        path.Add(waypoint);
+        waypoint.isPlaceable = false;
     }
 
     private void ExploreNeighbours(Waypoint from)
