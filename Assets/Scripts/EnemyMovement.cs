@@ -15,15 +15,10 @@ public class EnemyMovement : MonoBehaviour
 
     IEnumerator FollowPath(List<Waypoint> path)
     {
-        Debug.Log("Starting patrol ...");
-
         foreach (Waypoint waypoint in path)
         {
-            Debug.Log("Visiting block: " + waypoint.name);
             gameObject.transform.position = waypoint.transform.position;
             yield return new WaitForSeconds(3f);
         }
-
-        Debug.Log("Ending patrol ...");
     }
 }
