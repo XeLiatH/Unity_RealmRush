@@ -2873,8 +2873,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.2511942, y: 0.7065094, z: -0.30104643, w: 0.58916646}
-  m_LocalPosition: {x: -35.133595, y: 54.302856, z: 37.010746}
+  m_LocalRotation: {x: 0.35283208, y: -0.20282125, z: 0.07875899, w: 0.9100385}
+  m_LocalPosition: {x: 51.01069, y: 46.66386, z: -36.703403}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5412,6 +5412,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1942181539}
   - component: {fileID: 1942181540}
+  - component: {fileID: 1942181541}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -5479,6 +5480,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startWaypoint: {fileID: 2765240805062219656}
   endWaypoint: {fileID: 1864108639}
+--- !u!114 &1942181541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1942181538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aa31bc23c9ff4e4aa932653390c6b62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerPrefab: {fileID: 7195350386817469845, guid: 21a6449139b73c442a52e21c57a86da1,
+    type: 3}
+  towerLimit: 5
 --- !u!1001 &1959494162
 PrefabInstance:
   m_ObjectHideFlags: 0
