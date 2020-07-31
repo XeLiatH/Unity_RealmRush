@@ -7,6 +7,8 @@ public class Waypoint : MonoBehaviour
     public Waypoint exploredFrom;
     public bool isPlaceable = true;
 
+    [SerializeField] Tower towerPrefab;
+
     const int gridSize = 10;
 
     public int GetGridSize()
@@ -26,7 +28,8 @@ public class Waypoint : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && isPlaceable) // left click
         {
-            Debug.Log(gameObject.name);
+            Instantiate(towerPrefab, transform.position, Quaternion.identity);
+            isPlaceable = false;
         }
     }
 }
