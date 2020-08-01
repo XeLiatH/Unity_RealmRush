@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -9,16 +10,14 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] EnemyMovement enemyPrefab;
     [SerializeField] Transform enemyParent;
 
-    // Start is called before the first frame update
+    [SerializeField] Text scoreText;
+
+    int score = 0;
+
     void Start()
     {
+        scoreText.text = score.ToString();
         StartCoroutine(SpawnEnemy());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private IEnumerator SpawnEnemy()
@@ -27,6 +26,9 @@ public class EnemySpawner : MonoBehaviour
         {
             var enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
             enemy.transform.parent = enemyParent;
+
+            score++;
+            scoreText.text = score.ToString();
 
             yield return new WaitForSeconds(secondsBetweenSpawns);
         }

@@ -8,12 +8,6 @@ public class EnemyDamage : MonoBehaviour
     [SerializeField] ParticleSystem deathVFXPrefab;
     [SerializeField] int hitPoints = 10;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     private void OnParticleCollision(GameObject other)
     {
         ProcessHit();
