@@ -6,6 +6,7 @@ public class TowerFactory : MonoBehaviour
 {
     [SerializeField] Tower towerPrefab;
     [SerializeField] int towerLimit = 5;
+    [SerializeField] Transform towerParent;
 
     Queue<Tower> buffer = new Queue<Tower>();
 
@@ -26,6 +27,9 @@ public class TowerFactory : MonoBehaviour
     private void InstantiateNewTower(Waypoint waypoint)
     {
         var tower = Instantiate(towerPrefab, waypoint.transform.position, Quaternion.identity);
+        tower.transform.parent = towerParent;
+
+        tower.baseWaypoint = waypoint;
         waypoint.isPlaceable = false;
 
         buffer.Enqueue(tower);
@@ -34,10 +38,13 @@ public class TowerFactory : MonoBehaviour
     private void MoveExistingTower(Waypoint waypoint)
     {
         var oldTower = buffer.Dequeue();
-        oldTower.transform.position = waypoint.transform.position;
-
-        buffer.Enqueue(oldTower);
 
         waypoint.isPlaceable = false;
+        oldTower.baseWaypoint.isPlaceable = true;
+
+        oldTower.transform.position = waypoint.transform.position;
+        oldTower.baseWaypoint = waypoint;
+
+        buffer.Enqueue(oldTower);
     }
 }
