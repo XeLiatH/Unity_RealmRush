@@ -11,6 +11,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] Transform enemyParent;
 
     [SerializeField] Text scoreText;
+    [SerializeField] AudioClip spawnEnemySFX;
 
     int score = 0;
 
@@ -29,6 +30,9 @@ public class EnemySpawner : MonoBehaviour
 
             score++;
             scoreText.text = score.ToString();
+
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.PlayOneShot(spawnEnemySFX);
 
             yield return new WaitForSeconds(secondsBetweenSpawns);
         }
